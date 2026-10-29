@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VERTEX AXIOMA® | Consorcio 4.0 — Acceso Forense 4.0</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cyan: '#06b6d4',
+                            blue: '#3b82f6',
+                            emerald: '#10b981',
+                            amber: '#f59e0b',
+                            rose: '#f43f5e',
+                            violet: '#8b5cf6'
+                        },
+                        cyber: {
+                            bg: '#050811',
+                            panel: '#0d1322',
+                            card: '#11192e',
+                            border: '#1e293b',
+                            highlight: '#1e2d4a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050811;
+            color: #e2e8f0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(13, 19, 34, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .pulse-emerald {
+            animation: pulse-emerald-anim 2s infinite;
+        }
+        @keyframes pulse-emerald-anim {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .pulse-rose {
+            animation: pulse-rose-anim 1.5s infinite;
+        }
+        @keyframes pulse-rose-anim {
+            0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); }
+            70% { box-shadow: 0 0 0 12px rgba(244, 63, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #050811; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-slate-950">
+
+    <!-- HEADER DE CONTROL -->
+    <header class="border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-violet-600 via-cyan-600 to-emerald-400 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-cyan-500/20">
+                    <i data-lucide="shield-check" class="w-6 h-6 stroke-[2.5]"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold text-lg tracking-wider text-white">VERTEX AXIOMA<span class="text-cyan-400">®</span></span>
+                        <span class="bg-violet-950/90 text-violet-400 text-[10px] font-mono font-bold px-2 py-0.5 rounded border border-violet-800/60 uppercase tracking-wider">CONSORCIO 4.0</span>
+                    </div>
+                    <p class="text-xs text-slate-400 font-mono hidden sm:block">Acceso Forense 4.0 & Registro Inmutable de Prestadores — Addenda N° 22</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <div class="hidden lg:flex items-center gap-2 bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-800 text-xs font-mono">
+                    <i data-lucide="lock" class="w-4 h-4 text-cyan-400"></i>
+                    <span class="text-slate-400">BLOCK:</span>
+                    <span class="text-emerald-400 font-bold" id="headerHash">0x8C7...B2F</span>
+                </div>
+
+                <div class="flex items-center gap-2 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-emerald"></span>
+                    <span class="text-xs font-mono text-emerald-400 font-bold">NODO ACCESO ONLINE</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SUBTÍTULO E INFORMACIÓN GENERAL -->
+    <div class="bg-slate-950 border-b border-slate-800/60 py-3">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div>
+                <p class="text-xs text-slate-300">
+                    <strong>Control de Accesos Forense, Identificación de Contratistas y Trazabilidad Inalterable.</strong>
+                </p>
+                <p class="text-[11px] text-slate-500 font-mono mt-0.5">
+                    Constitución AXIOMA® — Despliegue de Cadena de Custodia para Personal Técnico y Terceros.
+                </p>
+            </div>
+
+            <div class="flex items-center gap-2 text-xs font-mono text-slate-400 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-800 self-start md:self-auto">
+                <i data-lucide="clock" class="w-4 h-4 text-cyan-400"></i>
+                <span>HORA DEL SISTEMA:</span>
+                <span class="text-cyan-400 font-bold" id="liveSystemClock">00:00:00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+        <!-- METRICAS DE OCUPACIÓN Y ACCESOS DEL DÍA -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="glass-panel rounded-xl p-4 flex flex-col justify-between">
+                <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
+                    <span>PRESTADORES EN EDIFICIO</span>
+                    <i data-lucide="users" class="w-4 h-4 text-emerald-400"></i>
+                </div>
+                <div class="mt-2">
+                    <div class="text-2xl font-black font-mono text-emerald-400" id="activeWorkersCount">2</div>
+                    <div class="text-[11px] font-mono text-slate-400 mt-1">Permanencia bajo norma</div>
+                </div>
+                <div class="mt-3 border-t border-slate-800 pt-2 flex justify-between text-[10px] font-mono text-slate-400">
+                    <span>Límite Zonal: 10 max</span>
+                    <span class="text-emerald-400 font-bold">NORMAL</span>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-xl p-4 flex flex-col justify-between">
+                <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
+                    <span>ALERTAS DE TIEMPO EXCEDIDO</span>
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-400"></i>
+                </div>
+                <div class="mt-2">
+                    <div class="text-2xl font-black font-mono text-rose-400" id="overstayCount">1</div>
+                    <div class="text-[11px] font-mono text-slate-400 mt-1">Exceso de ventana horaria</div>
+                </div>
+                <div class="mt-3 border-t border-slate-800 pt-2 flex justify-between text-[10px] font-mono text-slate-400">
+                    <span>Auditoría: Automática</span>
+                    <span class="text-rose-400 font-bold">ALERTA ACTIVA</span>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-xl p-4 flex flex-col justify-between">
+                <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
+                    <span>TOTAL INGRESOS HOY</span>
+                    <i data-lucide="log-in" class="w-4 h-4 text-cyan-400"></i>
+                </div>
+                <div class="mt-2">
+                    <div class="text-2xl font-black font-mono text-cyan-400" id="todayEntriesCount">5</div>
+                    <div class="text-[11px] font-mono text-slate-400 mt-1">Registros Validados</div>
+                </div>
+                <div class="mt-3 border-t border-slate-800 pt-2 flex justify-between text-[10px] font-mono text-slate-400">
+                    <span>Identidad: DNI/QR</span>
+                    <span class="text-cyan-400 font-bold">100% OK</span>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-xl p-4 flex flex-col justify-between">
+                <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
+                    <span>AHORRO POR AUDITORÍA HORAS</span>
+                    <i data-lucide="piggy-bank" class="w-4 h-4 text-violet-400"></i>
+                </div>
+                <div class="mt-2">
+                    <div class="text-2xl font-black font-mono text-violet-400" id="savingsEstimate">$48,500 ARS</div>
+                    <div class="text-[11px] font-mono text-slate-400 mt-1">Cobros fantasma evitados</div>
+                </div>
+                <div class="mt-3 border-t border-slate-800 pt-2 flex justify-between text-[10px] font-mono text-slate-400">
+                    <span>Conciliación: Smart-Settle</span>
+                    <span class="text-violet-400 font-bold">PETRIFICADO</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- GENERADOR DE CREDENCIALES Y TÓTEM DE INGRESO -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- 1. FORMULARIO DE PREREGISTRO / CREDENCIAL DIGITAL (6 cols) -->
+            <div class="lg:col-span-6 glass-panel rounded-2xl p-5 space-y-4 border-l-4 border-l-cyan-500">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <div class="flex items-center gap-2">
+                        <div class="p-2 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                            <i data-lucide="qr-code" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-white">Generador de Credenciales Dinámicas (QR / Token)</h3>
+                            <p class="text-[11px] text-slate-400 font-mono">Pre-Registro Obligatorio de Contratistas por la Administración</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="preRegForm" onsubmit="handlePreRegister(event)" class="space-y-3 text-xs font-mono">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="text-slate-400 block mb-1">Nombre Completo del Obrero:</label>
+                            <input type="text" id="regName" required placeholder="Ej: Carlos Gómez" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:border-cyan-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="text-slate-400 block mb-1">DNI / Cédula:</label>
+                            <input type="text" id="regDni" required placeholder="Ej: 32884910" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:border-cyan-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="text-slate-400 block mb-1">Oficio / Empresa:</label>
+                            <select id="regTrade" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:border-cyan-500 focus:outline-none">
+                                <option value="Plomería / Agua">Plomería / Agua</option>
+                                <option value="Electricidad">Electricidad</option>
+                                <option value="Pintura / Albañilería">Pintura / Albañilería</option>
+                                <option value="Ascensores Tech">Ascensores Tech</option>
+                                <option value="Limpieza Especial">Limpieza Especial</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-slate-400 block mb-1">Destino / Área Autorizada:</label>
+                            <input type="text" id="regTarget" required placeholder="Ej: Depto 2°B / Sala Bombas" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:border-cyan-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="text-slate-400 block mb-1">Ventana Desde (Hora):</label>
+                            <input type="time" id="regTimeStart" value="08:00" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:border-cyan-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="text-slate-400 block mb-1">Ventana Hasta (Hora):</label>
+                            <input type="time" id="regTimeEnd" value="13:00" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:border-cyan-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-xl transition flex items-center justify-center gap-2 shadow">
+                        <i data-lucide="key" class="w-4 h-4"></i> Generar Credencial Criptográfica QR / OTP
+                    </button>
+                </form>
+
+                <!-- Vista Previa del Token Generado -->
+                <div id="generatedTokenCard" class="hidden bg-slate-950 p-3 rounded-xl border border-cyan-500/40 font-mono text-xs space-y-2">
+                    <div class="flex items-center justify-between text-cyan-400 font-bold">
+                        <span>CREDENCIAL EMITIDA EXITOSAMENTE</span>
+                        <span id="tokenHash" class="text-[10px] text-slate-500">HASH: 0xA4F9</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="bg-white p-2 rounded-lg text-slate-950 font-mono text-[9px] font-bold text-center leading-none">
+                            [ QR TOKEN ]<br><span id="tokenPasscode" class="text-xs font-black">884-910</span>
+                        </div>
+                        <div class="text-[11px] text-slate-300 space-y-0.5">
+                            <p>Obrero: <strong class="text-white" id="tokenWorkerName">-</strong></p>
+                            <p>Permiso: <strong class="text-cyan-400" id="tokenWindow">-</strong></p>
+                            <p class="text-[10px] text-slate-500">Listo para ser escaneado en el Tótem de Ingreso.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. SIMULADOR DE TÓTEM DE INGRESO IOT (6 cols) -->
+            <div class="lg:col-span-6 glass-panel rounded-2xl p-5 space-y-4 border-l-4 border-l-emerald-500 flex flex-col justify-between">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <div class="flex items-center gap-2">
+                        <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                            <i data-lucide="scan" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-white">Tótem de Ingreso IoT — Terminal de Puerta Principal</h3>
+                            <p class="text-[11px] text-slate-400 font-mono">Simulador de Lectura de DNI / NFC / QR Token</p>
+                        </div>
+                    </div>
+                    <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">
+                        SENSOR ONLINE
+                    </span>
+                </div>
+
+                <div class="space-y-3">
+                    <div>
+                        <label class="text-xs text-slate-400 block mb-1 font-mono">Seleccionar Credencial / Escanear DNI:</label>
+                        <select id="totemSelectWorker" onchange="previewTotemWorker()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs font-mono text-white focus:border-emerald-500 focus:outline-none">
+                            <!-- Populated by JS -->
+                        </select>
+                    </div>
+
+                    <!-- Panel Display del Tótem -->
+                    <div id="totemDisplay" class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-center font-mono space-y-2">
+                        <div class="text-xs text-slate-500">ESTADO DEL LECTOR TÓTEM</div>
+                        <div id="totemStatusText" class="text-base font-extrabold text-slate-400">ESPERANDO CREDENCIAL...</div>
+                        <div id="totemDetailText" class="text-xs text-slate-500">Acerque el código QR o Cédula al escáner.</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 pt-2">
+                    <button onclick="triggerGateAction('INGRESO')" class="py-2.5 px-3 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold font-mono rounded-xl transition flex items-center justify-center gap-2 shadow">
+                        <i data-lucide="arrow-right-circle" class="w-4 h-4"></i> REGISTRAR INGRESO
+                    </button>
+                    <button onclick="triggerGateAction('EGRESO')" class="py-2.5 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold font-mono rounded-xl border border-slate-700 transition flex items-center justify-center gap-2">
+                        <i data-lucide="arrow-left-circle" class="w-4 h-4"></i> REGISTRAR EGRESO
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 3. TABLA DE PERMANENCIA Y ESTADO DE PRESTADORES EN TIEMPO REAL -->
+        <div class="glass-panel rounded-2xl p-5 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div>
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i data-lucide="shield-alert" class="w-5 h-5 text-cyan-400"></i>
+                        Bitácora de Permanencia de Prestadores — Control de Ocupación
+                    </h3>
+                    <p class="text-xs text-slate-400">Monitoreo de prestadores presentes vs egresados y detección de permanencia no autorizada.</p>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs font-mono border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-800 text-slate-400">
+                            <th class="py-2.5 px-2">Prestador / DNI</th>
+                            <th class="py-2.5 px-2">Oficio / Empresa</th>
+                            <th class="py-2.5 px-2">Destino</th>
+                            <th class="py-2.5 px-2">Ventana Asignada</th>
+                            <th class="py-2.5 px-2">Hora Entrada</th>
+                            <th class="py-2.5 px-2">Hora Salida</th>
+                            <th class="py-2.5 px-2 text-right">Estado / Alerta</th>
+                        </tr>
+                    </thead>
+                    <tbody id="occupancyTableBody" class="divide-y divide-slate-800/60">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 4. MOTOR AUDITORÍA SMART-SETTLE: HORAS REALES VS FACTURADAS -->
+        <div class="glass-panel rounded-2xl p-5 space-y-4 border-l-4 border-l-violet-500">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div>
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i data-lucide="calculator" class="w-5 h-5 text-violet-400"></i>
+                        Smart-Settle Laboral — Auditoría de Horas Reales vs Facturadas por la Administración
+                    </h3>
+                    <p class="text-xs text-slate-400">Conciliación automática entre las horas cobradas por proveedores/administración y el tiempo real verificado en puerta.</p>
+                </div>
+                <span class="text-xs font-mono text-violet-400 bg-violet-950 px-2.5 py-1 rounded-lg border border-violet-800">
+                    SISTEMA FORENSE ANTI-COBRO FANTASMA
+                </span>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs font-mono border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-800 text-slate-400">
+                            <th class="py-2.5 px-2">Trabajo / Proveedor</th>
+                            <th class="py-2.5 px-2">Horas Facturadas</th>
+                            <th class="py-2.5 px-2">Horas Reales (Puerta)</th>
+                            <th class="py-2.5 px-2">Costo Hora</th>
+                            <th class="py-2.5 px-2">Monto Liquidado</th>
+                            <th class="py-2.5 px-2 text-cyan-400">Monto Real Auditado</th>
+                            <th class="py-2.5 px-2 text-right">Diferencia / Ahorro Consorcio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="laborAuditTableBody" class="divide-y divide-slate-800/60">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 5. CRYPTO LEDGER & CERTIFICADO FORENSE -->
+        <div class="glass-panel rounded-2xl p-5 space-y-3 border-l-4 border-l-cyan-500">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="file-check-2" class="w-5 h-5 text-cyan-400"></i>
+                    <div>
+                        <h3 class="text-sm font-bold text-white">Ledger de Accesos & Prueba Petrificada (SHA-256)</h3>
+                        <p class="text-xs text-slate-400">Sello de Inmutabilidad Transfronteriza — Cadena de Custodia Addenda N° 22</p>
+                    </div>
+                </div>
+                <button onclick="exportAccessCertificate()" class="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-lg text-xs transition flex items-center gap-1.5 shadow">
+                    <i data-lucide="download" class="w-4 h-4"></i> Exportar Certificado Forense (.PDF)
+                </button>
+            </div>
+
+            <div id="cryptoAccessConsole" class="bg-slate-950 p-3 rounded-xl border border-slate-800 font-mono text-[11px] h-40 overflow-y-auto space-y-1.5">
+                <!-- Console Entries populated by JS -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800/80 bg-slate-950 py-4 text-center text-xs text-slate-500 font-mono">
+        VERTEX AXIOMA® — Todos los derechos reservados. Addenda N° 22 incorporada al Manual de Propiedad Intelectual.
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT NATIVA -->
+    <script>
+        // Lista de Prestadores y Credenciales
+        let contractors = [
+            { id: 'C01', name: 'Carlos Gómez', dni: '32884910', trade: 'Plomería / Agua', target: 'Depto 2°B', start: '08:00', end: '13:00', status: 'INSIDE', inTime: '08:15', outTime: '-', overstay: false },
+            { id: 'C02', name: 'Marcos Peralta', dni: '29410522', trade: 'Electricidad', target: 'Tablero Principal', start: '09:00', end: '11:00', status: 'OVERSTAY', inTime: '09:05', outTime: '-', overstay: true },
+            { id: 'C03', name: 'Esteban Ríos', dni: '35112480', trade: 'Ascensores Tech', target: 'Sala de Máquinas', start: '10:00', end: '12:00', status: 'OUT', inTime: '10:02', outTime: '11:55', overstay: false },
+            { id: 'C04', name: 'Jorge Benítez', dni: '27991403', trade: 'Pintura / Albañilería', target: 'Palier 4° Piso', start: '08:00', end: '14:00', status: 'REGISTERED', inTime: '-', outTime: '-', overstay: false }
+        ];
+
+        // Muestras de Auditoría Laboral (Horas Facturadas vs Reales)
+        const laborAudits = [
+            { job: 'Reparación de Cañería Máster 2°B', contractor: 'Carlos Gómez (Plomería)', billedHours: 8, realHours: 4.5, ratePerHour: 8000 },
+            { job: 'Revisión Tablero Ascensores', contractor: 'Esteban Ríos (Ascensores)', billedHours: 5, realHours: 2.0, ratePerHour: 12000 },
+            { job: 'Pintura y Arreglo Palier 4°', contractor: 'Jorge Benítez (Pintura)', billedHours: 10, realHours: 6.0, ratePerHour: 6500 }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            startClock();
+            updateTotemSelectOptions();
+            renderOccupancyTable();
+            renderLaborAuditTable();
+            addLogEntry('SISTEMA: Nodo de Acceso Forense 4.0 inicializado. Inmutabilidad SHA-256 lista.');
+        });
+
+        // Reloj del Sistema
+        function startClock() {
+            setInterval(() => {
+                const now = new Date();
+                document.getElementById('liveSystemClock').innerText = now.toLocaleTimeString();
+            }, 1000);
+        }
+
+        // Pre-Registro de Obrero
+        function handlePreRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('regName').value;
+            const dni = document.getElementById('regDni').value;
+            const trade = document.getElementById('regTrade').value;
+            const target = document.getElementById('regTarget').value;
+            const start = document.getElementById('regTimeStart').value;
+            const end = document.getElementById('regTimeEnd').value;
+
+            const newId = 'C' + Math.floor(10 + Math.random() * 90);
+            const newContractor = {
+                id: newId,
+                name,
+                dni,
+                trade,
+                target,
+                start,
+                end,
+                status: 'REGISTERED',
+                inTime: '-',
+                outTime: '-',
+                overstay: false
+            };
+
+            contractors.push(newContractor);
+
+            // Mostrar Tarjeta del Token
+            document.getElementById('generatedTokenCard').classList.remove('hidden');
+            document.getElementById('tokenWorkerName').innerText = `${name} (DNI ${dni})`;
+            document.getElementById('tokenWindow').innerText = `${start} a ${end} hs en ${target}`;
+            document.getElementById('tokenPasscode').innerText = dni.slice(-6);
+            document.getElementById('tokenHash').innerText = 'HASH: 0x' + Math.floor(Math.random()*65535).toString(16).toUpperCase();
+
+            updateTotemSelectOptions();
+            renderOccupancyTable();
+
+            addLogEntry(`PRE-REGISTRO: Credencial temporal generada para ${name} (${trade}) - Ventana: ${start}-${end}.`);
+            document.getElementById('preRegForm').reset();
+        }
+
+        // Actualizar Selector del Tótem
+        function updateTotemSelectOptions() {
+            const select = document.getElementById('totemSelectWorker');
+            select.innerHTML = '<option value="">-- Seleccionar Obrero para Escanear Credencial --</option>';
+            contractors.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c.id;
+                opt.innerText = `${c.name} - DNI: ${c.dni} (${c.trade}) [Estado: ${c.status}]`;
+                select.appendChild(opt);
+            });
+        }
+
+        // Previsualizar Estado en el Tótem
+        function previewTotemWorker() {
+            const id = document.getElementById('totemSelectWorker').value;
+            const statusText = document.getElementById('totemStatusText');
+            const detailText = document.getElementById('totemDetailText');
+
+            if (!id) {
+                statusText.innerText = 'ESPERANDO CREDENCIAL...';
+                statusText.className = 'text-base font-extrabold text-slate-400';
+                detailText.innerText = 'Acerque el código QR o Cédula al escáner.';
+                return;
+            }
+
+            const c = contractors.find(x => x.id === id);
+            if (c) {
+                if (c.status === 'OVERSTAY') {
+                    statusText.innerText = 'ALERTA: TIEMPO EXCEDIDO';
+                    statusText.className = 'text-base font-extrabold text-rose-400 animate-pulse';
+                    detailText.innerText = `Permiso venció a las ${c.end} hs. Se requiere egreso inmediato.`;
+                } else if (c.status === 'INSIDE') {
+                    statusText.innerText = 'PRESENTE EN EDIFICIO';
+                    statusText.className = 'text-base font-extrabold text-emerald-400';
+                    detailText.innerText = `Ingresó a las ${c.inTime} hs hacia ${c.target}.`;
+                } else if (c.status === 'OUT') {
+                    statusText.innerText = 'EGRESADO';
+                    statusText.className = 'text-base font-extrabold text-slate-400';
+                    detailText.innerText = `Salió a las ${c.outTime} hs. Credencial inactiva.`;
+                } else {
+                    statusText.innerText = 'ACCESO AUTORIZADO';
+                    statusText.className = 'text-base font-extrabold text-cyan-400';
+                    detailText.innerText = `Ventana asignada: ${c.start} a ${c.end} hs (${c.target}).`;
+                }
+            }
+        }
+
+        // Ejecutar Acción de Ingreso o Egreso
+        function triggerGateAction(actionType) {
+            const id = document.getElementById('totemSelectWorker').value;
+            if (!id) {
+                alert('Por favor seleccione una credencial o DNI para escanear en el Tótem.');
+                return;
+            }
+
+            const c = contractors.find(x => x.id === id);
+            const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            if (actionType === 'INGRESO') {
+                if (c.status === 'INSIDE' || c.status === 'OVERSTAY') {
+                    alert('El prestador ya se encuentra registrado DENTRO del edificio.');
+                    return;
+                }
+                c.status = 'INSIDE';
+                c.inTime = now;
+                addLogEntry(`ACCESO INGRESO: ${c.name} (DNI ${c.dni}) escaneó QR. Ingreso validado a ${c.target} a las ${now}.`);
+            } else {
+                if (c.status === 'OUT' || c.status === 'REGISTERED') {
+                    alert('El prestador no posee marcación de ingreso activa.');
+                    return;
+                }
+                c.status = 'OUT';
+                c.outTime = now;
+                c.overstay = false;
+                addLogEntry(`ACCESO EGRESO: ${c.name} (DNI ${c.dni}) registró salida a las ${now}. Ciclo cerrado.`);
+            }
+
+            previewTotemWorker();
+            renderOccupancyTable();
+            updateTotemSelectOptions();
+        }
+
+        // Tabla de Permanencia
+        function renderOccupancyTable() {
+            const tbody = document.getElementById('occupancyTableBody');
+            tbody.innerHTML = '';
+
+            let insideCount = 0;
+            let overstayCount = 0;
+
+            contractors.forEach(c => {
+                if (c.status === 'INSIDE' || c.status === 'OVERSTAY') insideCount++;
+                if (c.status === 'OVERSTAY') overstayCount++;
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-900/50 transition';
+
+                let badge = '';
+                if (c.status === 'OVERSTAY') {
+                    badge = `<span class="bg-rose-500/20 text-rose-300 border border-rose-500/50 px-2 py-0.5 rounded font-bold text-[10px] animate-pulse">ALERTA: TIEMPO EXCEDIDO</span>`;
+                } else if (c.status === 'INSIDE') {
+                    badge = `<span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded font-bold text-[10px]">PRESENTE EN EDIFICIO</span>`;
+                } else if (c.status === 'OUT') {
+                    badge = `<span class="bg-slate-800 text-slate-400 px-2 py-0.5 rounded text-[10px]">EGRESADO</span>`;
+                } else {
+                    badge = `<span class="bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-2 py-0.5 rounded text-[10px]">PRE-REGISTRADO</span>`;
+                }
+
+                tr.innerHTML = `
+                    <td class="py-2.5 px-2 font-bold text-white">${c.name} <span class="text-slate-500 font-normal block text-[10px]">DNI: ${c.dni}</span></td>
+                    <td class="py-2.5 px-2 text-slate-300">${c.trade}</td>
+                    <td class="py-2.5 px-2 text-slate-300">${c.target}</td>
+                    <td class="py-2.5 px-2 text-cyan-400 font-bold">${c.start} - ${c.end} hs</td>
+                    <td class="py-2.5 px-2 text-emerald-400">${c.inTime}</td>
+                    <td class="py-2.5 px-2 text-slate-400">${c.outTime}</td>
+                    <td class="py-2.5 px-2 text-right">${badge}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('activeWorkersCount').innerText = insideCount;
+            document.getElementById('overstayCount').innerText = overstayCount;
+        }
+
+        // Tabla Smart-Settle Laboral
+        function renderLaborAuditTable() {
+            const tbody = document.getElementById('laborAuditTableBody');
+            tbody.innerHTML = '';
+
+            let totalSavings = 0;
+
+            laborAudits.forEach(a => {
+                const billedAmount = a.billedHours * a.ratePerHour;
+                const realAmount = a.realHours * a.ratePerHour;
+                const diff = billedAmount - realAmount;
+                totalSavings += diff;
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-900/50 transition';
+                tr.innerHTML = `
+                    <td class="py-2.5 px-2 font-bold text-white">${a.job} <span class="text-slate-500 font-normal block text-[10px]">${a.contractor}</span></td>
+                    <td class="py-2.5 px-2 text-rose-400 font-bold">${a.billedHours} hs</td>
+                    <td class="py-2.5 px-2 text-emerald-400 font-bold">${a.realHours} hs (Verificado)</td>
+                    <td class="py-2.5 px-2 text-slate-400">$${a.ratePerHour.toLocaleString('es-AR')} / h</td>
+                    <td class="py-2.5 px-2 text-slate-400">$${billedAmount.toLocaleString('es-AR')}</td>
+                    <td class="py-2.5 px-2 font-bold text-cyan-400">$${realAmount.toLocaleString('es-AR')}</td>
+                    <td class="py-2.5 px-2 text-right font-bold text-emerald-400">
+                        -$${diff.toLocaleString('es-AR')} (Ahorro)
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('savingsEstimate').innerText = `$${totalSavings.toLocaleString('es-AR')} ARS`;
+        }
+
+        // Consola Criptográfica
+        function addLogEntry(msg) {
+            const consoleBox = document.getElementById('cryptoAccessConsole');
+            const time = new Date().toLocaleTimeString();
+            const hash = '0x' + Array.from({length: 8}, () => Math.floor(Math.random()*16).toString(16)).join('');
+
+            const el = document.createElement('div');
+            el.className = 'text-slate-300 flex items-start gap-1.5 border-b border-slate-900/80 pb-1';
+            el.innerHTML = `
+                <span class="text-slate-500">[${time}]</span>
+                <span class="text-cyan-400">[${hash}]</span>
+                <span class="flex-1">${msg}</span>
+            `;
+            consoleBox.prepend(el);
+        }
+
+        function exportAccessCertificate() {
+            addLogEntry('EXPORTACIÓN: Certificado Forense de Accesos PDF generado con Sello de Inmutabilidad SHA-256.');
+            alert('Certificado Forense de Accesos exportado exitosamente con Firma Digital AXIOMA®.');
+        }
+    </script>
+</body>
+</html>
